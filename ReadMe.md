@@ -33,3 +33,6 @@ localhost:8088/myretail/items/4
 
 ## PUT an item
 localhost:8088/myretail/items
+
+## Run a runnable JAR
+java -DSERVER_PORT=8080 -jar app.jar
