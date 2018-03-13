@@ -4,6 +4,7 @@
 RemoteSystemsTempFiles/*
 data/logs/
 data/myretail/
+*.log
 .DS_Store
 Screenshots/Results/
 out/
