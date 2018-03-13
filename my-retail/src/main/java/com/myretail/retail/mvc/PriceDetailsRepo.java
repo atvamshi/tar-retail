@@ -1,6 +1,9 @@
 package com.myretail.retail.mvc;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
+
+import javax.transaction.Transactional;
 
 /**
  * Project: myretail-parent
@@ -17,6 +20,8 @@ public interface PriceDetailsRepo extends CrudRepository<PriceDetailsModel, Long
 
     PriceDetailsModel findAllByItemNameAndItemId(String itemName, Long itemId);
 
-    void deleteAllByItemId(Long itemId);
+    @Transactional
+    @Modifying
+    void deleteByItemId(Long itemId);
 
 }

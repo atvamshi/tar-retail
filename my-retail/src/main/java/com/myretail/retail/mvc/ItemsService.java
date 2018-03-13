@@ -62,7 +62,7 @@ public class ItemsService {
     }
 
     public void deleteItemInfo(Long itemId) {
-        priceDetailsRepo.deleteAllByItemId(itemId);
+        priceDetailsRepo.deleteByItemId(itemId);
     }
 
     public List<PriceDetailsModel> getAllItems() {

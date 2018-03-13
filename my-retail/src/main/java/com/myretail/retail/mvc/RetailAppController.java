@@ -115,7 +115,7 @@ public class RetailAppController {
             }
         }
 
-        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Item deleted or Not Available", HttpStatus.ACCEPTED);
     }
 
     @Validated
