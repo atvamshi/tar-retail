@@ -1,0 +1,38 @@
+############################################
+#Generic file ignores:
+*.bak
+RemoteSystemsTempFiles/*
+data/logs/
+data/myretail/
+.DS_Store
+Screenshots/Results/
+out/
+logs/
+data/
+Screenshots/
+
+############################################
+# Build Locations:
+build/
+target/
+bin/
+
+############################################
+# Eclipse Files:
+.tern-project
+.settings/
+Servers/*
+.metadata/*
+.recommenders/*
+.classpath
+.project
+
+
+############################################
+# IntelliJ Files
+*.eml
+*.iml
+.idea/
+
+
+############################################
