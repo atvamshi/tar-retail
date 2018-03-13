@@ -26,15 +26,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+
+
+        <!--Performance Properties-->
+        <jmeter.test.Files.Included>My*</jmeter.test.Files.Included>
+        <jmeter.test.Files.Excluded>NANANANA*</jmeter.test.Files.Excluded>
+        <perf.jtl.full.filename.dashboard>My_Retail_App.jtl</perf.jtl.full.filename.dashboard>
+        <jmeter.jmx.api.hostname>localhost</jmeter.jmx.api.hostname>
+
     </properties>
 
     <dependencies>
-        <!--<dependency>-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/info.cukes/cucumber-java &ndash;&gt;-->
-        <!--<groupId>info.cukes</groupId>-->
-        <!--<artifactId>cucumber-java</artifactId>-->
-        <!--<version>${cucumber.version}</version>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>info.cukes</groupId>
@@ -101,11 +103,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -133,6 +130,86 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--Plugin for Jmeter by ** Vamsi-->
+            <!--Configuring Jmeter-->
+            <!--https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Selecting-Tests-To-Run-->
+            <plugin>
+
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                        <configuration>
+                            <testFilesIncluded>
+                                <jMeterTestFile>${jmeter.test.Files.Included}</jMeterTestFile>
+                            </testFilesIncluded>
+                            <testFilesExcluded>
+                                <excludeJMeterTestFile>${jmeter.test.Files.Excluded}</excludeJMeterTestFile>
+                            </testFilesExcluded>
+                            <jMeterProcessJVMSettings>
+                                <xms>4096</xms>
+                                <xmx>4096</xmx>
+                                <arguments>
+                                    <argument>-Xprof</argument>
+                                    <argument>-Xfuture</argument>
+                                </arguments>
+                            </jMeterProcessJVMSettings>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <propertiesUser>
+                        <jmx.api.hostname>${jmeter.jmx.api.hostname}</jmx.api.hostname>
+                        <jmeter.save.saveservice.output_format>csv</jmeter.save.saveservice.output_format>
+                        <jmeter.save.saveservice.print_field_names>true</jmeter.save.saveservice.print_field_names>
+                        <jmeter.save.saveservice.successful>true</jmeter.save.saveservice.successful>
+                        <jmeter.save.saveservice.label>true</jmeter.save.saveservice.label>
+                        <jmeter.save.saveservice.time>true</jmeter.save.saveservice.time>
+                    </propertiesUser>
+                    <propertiesJMeter>
+                        <jmeter.save.saveservice.thread_counts>true</jmeter.save.saveservice.thread_counts>
+                    </propertiesJMeter>
+                    <testResultsTimestamp>false</testResultsTimestamp>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${basedir}/target/jmeter/dashboard"/>
+                                <copy
+                                        file="${basedir}/src/test/jmeter/lib/binNew/reportgenerator.properties"
+                                        tofile="${basedir}/target/jmeter/bin/reportgenerator.properties"/>
+                                <copy todir="${basedir}/target/jmeter/bin/report-template">
+                                    <fileset dir="${basedir}/src/test/jmeter/lib/binNew/report-template"/>
+                                </copy>
+                                <java jar="${basedir}/target/jmeter/bin/ApacheJMeter-3.3.jar"
+                                      fork="true">
+                                    <arg value="-g"/>
+                                    <arg value="${basedir}/target/jmeter/results/${perf.jtl.full.filename.dashboard}"/>
+                                    <arg value="-o"/>
+                                    <arg value="${basedir}/target/jmeter/dashboard"/>
+                                </java>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
