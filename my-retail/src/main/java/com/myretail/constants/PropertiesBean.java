@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Project: myretail-parent
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @ToString
-@Component
+@Configuration
 public class PropertiesBean {
 
     @Value("${server.port}")
