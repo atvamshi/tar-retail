@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,18 +38,12 @@ public class RetailAppController {
     @Autowired
     private ItemsService itemsService;
 
-    @Autowired
-    private PriceDetailsRepo priceDetailsRepo;
-
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
     public ResponseEntity<Object> getItemPriceInfo(@PathVariable Long itemId) {
 
-        logger.info("Data base values" + priceDetailsRepo.findAll().toString());
-
         List<PriceDetailsModel> priceDetailsModel;
-
 
         try {
 
@@ -57,7 +52,6 @@ public class RetailAppController {
             } else {
                 priceDetailsModel = itemsService.getItemsPrice(itemId);
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,10 +77,9 @@ public class RetailAppController {
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Object> addItemToDb(@PathVariable List<PriceDetailsModel> priceDetailsModel) {
+    public ResponseEntity<Object> addItemToDb(@RequestBody PriceDetailsModel priceDetailsModel) {
         try {
-            priceDetailsRepo.saveAll(priceDetailsModel);
-//            priceDetailsRepo
+            itemsService.saveItemInfo(priceDetailsModel);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -103,5 +96,72 @@ public class RetailAppController {
         return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
     }
 
+    @Validated
+    @ResponseBody
+    @RequestMapping(value = "/items/{itemId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteItemInDb(@PathVariable Long itemId) {
+        try {
+            itemsService.deleteItemInfo(itemId);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            if (e instanceof HttpClientErrorException) {
+                return new ResponseEntity<>("Unable to process request due to -> " + ((HttpClientErrorException) e).getResponseBodyAsString()
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                return new ResponseEntity<>(new JSONPObject("status", "Unable to process request due to -> " +
+                        e.getStackTrace())
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+    }
+
+    @Validated
+    @ResponseBody
+    @RequestMapping(value = "/items", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<Object> updateItemInDb(@RequestBody PriceDetailsModel priceDetailsModel) {
+        try {
+            itemsService.updateItemInfo(priceDetailsModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            if (e instanceof HttpClientErrorException) {
+                return new ResponseEntity<>("Unable to process request due to -> " + ((HttpClientErrorException) e).getResponseBodyAsString()
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                return new ResponseEntity<>(new JSONPObject("status", "Unable to process request due to -> " +
+                        e.getStackTrace())
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+    }
+
+
+    @Validated
+    @ResponseBody
+    @RequestMapping(value = "/items", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllItems() {
+
+        try {
+            return new ResponseEntity<>(itemsService.getAllItems(), HttpStatus.ACCEPTED);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            if (e instanceof HttpClientErrorException) {
+                return new ResponseEntity<>("Unable to process request due to -> " + ((HttpClientErrorException) e).getResponseBodyAsString()
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                return new ResponseEntity<>(new JSONPObject("status", "Unable to process request due to -> " +
+                        e.getLocalizedMessage())
+                        , HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+    }
 
 }

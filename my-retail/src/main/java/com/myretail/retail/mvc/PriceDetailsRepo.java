@@ -17,4 +17,6 @@ public interface PriceDetailsRepo extends CrudRepository<PriceDetailsModel, Long
 
     PriceDetailsModel findAllByItemNameAndItemId(String itemName, Long itemId);
 
+    void deleteAllByItemId(Long itemId);
+
 }

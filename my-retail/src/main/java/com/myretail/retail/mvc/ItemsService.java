@@ -53,5 +53,21 @@ public class ItemsService {
         return priceDetailsModelList;
     }
 
+    public void saveItemInfo(PriceDetailsModel priceDetailsModel) {
+        priceDetailsRepo.save(priceDetailsModel);
+    }
+
+    public void updateItemInfo(PriceDetailsModel priceDetailsModel) {
+        saveItemInfo(priceDetailsModel);
+    }
+
+    public void deleteItemInfo(Long itemId) {
+        priceDetailsRepo.deleteAllByItemId(itemId);
+    }
+
+    public List<PriceDetailsModel> getAllItems() {
+        return (List<PriceDetailsModel>) priceDetailsRepo.findAll();
+    }
+
 
 }
