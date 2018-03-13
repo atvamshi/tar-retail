@@ -24,5 +24,5 @@ import org.junit.runner.RunWith;
 )
 public class CucumberRunner {
     //whoops just saw that if i can demonstrate it should be good. Thought of doing ATDD
-    //Any one of test, demonstrate , hostable app
+    //Any one --> test Or demonstrate Or hostable app
 }
