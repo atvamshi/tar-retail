@@ -36,3 +36,9 @@ localhost:8088/myretail/items
 
 ## Run a runnable JAR
 java -DSERVER_PORT=8080 -jar app.jar
+
+## Check Maven dependency tree
+mvn dependency:tree
+
+## view jar contents
+jar tvf target/app.jar
