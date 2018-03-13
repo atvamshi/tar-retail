@@ -43,18 +43,19 @@ public class RetailAppController {
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getItemPriceInfo(@PathVariable Integer itemId) {
+    public ResponseEntity<Object> getItemPriceInfo(@PathVariable Long itemId) {
 
-        logger.info(priceDetailsRepo.findAll().toString());
+        logger.info("Data base values" + priceDetailsRepo.findAll().toString());
+
+        List<PriceDetailsModel> priceDetailsModel;
 
 
-        JSONObject jsonObject;
         try {
 
             if (itemId.toString().length() == 0 || itemId <= 0) {
                 return new ResponseEntity<>(new JSONObject("Invalid item id"), HttpStatus.BAD_REQUEST);
             } else {
-                jsonObject = itemsService.getItemsPrice();
+                priceDetailsModel = itemsService.getItemsPrice(itemId);
             }
 
 
@@ -66,12 +67,16 @@ public class RetailAppController {
                         , HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
                 return new ResponseEntity<>(new JSONPObject("status", "Unable to process request due to -> " +
-                        e.getStackTrace())
+                        e.getLocalizedMessage())
                         , HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
-        return new ResponseEntity<>(jsonObject, HttpStatus.ACCEPTED);
+        if (priceDetailsModel == null || priceDetailsModel.size() == 0) {
+            return new ResponseEntity<>("No data found for the searched id", HttpStatus.ACCEPTED);
+        }
+
+        return new ResponseEntity<>(priceDetailsModel, HttpStatus.ACCEPTED);
     }
 
 

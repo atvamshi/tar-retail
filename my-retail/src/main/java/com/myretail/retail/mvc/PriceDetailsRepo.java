@@ -14,4 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface PriceDetailsRepo extends CrudRepository<PriceDetailsModel, Long> {
+
+    PriceDetailsModel findAllByItemNameAndItemId(String itemName, Long itemId);
+
 }
