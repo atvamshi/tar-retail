@@ -42,3 +42,7 @@ mvn dependency:tree
 
 ## view jar contents
 jar tvf target/app.jar
+
+## Running Jmeter tests
+cd my-retail-atdd
+mvn clean verify -U -Dcucumber.options="--tags @NA" -Djmeter.jmx.api.hostname=localhost
