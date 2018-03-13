@@ -38,6 +38,9 @@ public class RetailAppController {
     @Autowired
     private ItemsService itemsService;
 
+    @Autowired
+    private DataBaseService dataBaseService;
+
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
@@ -79,7 +82,7 @@ public class RetailAppController {
     @RequestMapping(value = "/items", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Object> addItemToDb(@RequestBody PriceDetailsModel priceDetailsModel) {
         try {
-            itemsService.saveItemInfo(priceDetailsModel);
+            dataBaseService.saveItemInfo(priceDetailsModel);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -101,7 +104,7 @@ public class RetailAppController {
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteItemInDb(@PathVariable Long itemId) {
         try {
-            itemsService.deleteItemInfo(itemId);
+            dataBaseService.deleteItemInfo(itemId);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -123,7 +126,7 @@ public class RetailAppController {
     @RequestMapping(value = "/items", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<Object> updateItemInDb(@RequestBody PriceDetailsModel priceDetailsModel) {
         try {
-            itemsService.updateItemInfo(priceDetailsModel);
+            dataBaseService.updateItemInfo(priceDetailsModel);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -147,7 +150,7 @@ public class RetailAppController {
     public ResponseEntity<Object> getAllItems() {
 
         try {
-            return new ResponseEntity<>(itemsService.getAllItems(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>((List<PriceDetailsModel>) dataBaseService.getAllItems(), HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
             e.printStackTrace();
