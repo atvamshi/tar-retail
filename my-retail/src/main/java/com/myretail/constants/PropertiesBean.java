@@ -43,6 +43,12 @@ public class PropertiesBean {
     @Value("${external.api.url}")
     private String externalApiUrl;
 
+    @Value("${external.name.key}")
+    private String externalNameKey;
+
+    @Value("${external.name.depth}")
+    private String externalNameDepth;
+
 
 
     //Showing my spring experience to configure initiation of beans

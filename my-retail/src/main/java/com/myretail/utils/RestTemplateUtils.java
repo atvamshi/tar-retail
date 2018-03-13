@@ -1,5 +1,7 @@
 package com.myretail.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -26,12 +28,17 @@ import java.util.Map;
  */
 @Component
 public class RestTemplateUtils {
-    public String getKeyFromJsonObject(String jsonString, String jsonKey) throws JSONException {
+
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public synchronized String getKeyFromJsonObject(String jsonString, String jsonKey) throws JSONException {
+        logger.info(jsonString);
         JSONObject jsonObject = new JSONObject(jsonString);
         return jsonObject.getString(jsonKey);
     }
 
-    public HttpHeaders setHeaders(Map<String, String> mapOfHeaders) {
+    public synchronized HttpHeaders setHeaders(Map<String, String> mapOfHeaders) {
         HttpHeaders httpHeaders = new HttpHeaders() {{
             setAll(mapOfHeaders);
         }};
@@ -39,19 +46,19 @@ public class RestTemplateUtils {
         return httpHeaders;
     }
 
-    public <T> T restClientPost(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
+    public synchronized <T> T restClientPost(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
         return restClient(restUrl, httpHeaders, tRequestBody, "POST");
     }
 
-    public <T> T restClientPut(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
+    public synchronized <T> T restClientPut(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
         return restClient(restUrl, httpHeaders, tRequestBody, "PUT");
     }
 
-    public <T> T restClientDelete(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
+    public synchronized <T> T restClientDelete(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
         return restClient(restUrl, httpHeaders, tRequestBody, "DELETE");
     }
 
-    public <T> T restClientGet(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
+    public synchronized <T> T restClientGet(String restUrl, HttpHeaders httpHeaders, T tRequestBody) {
         return restClient(restUrl, httpHeaders, tRequestBody, "GET");
     }
 
@@ -65,7 +72,7 @@ public class RestTemplateUtils {
      * @param <T>
      * @return
      */
-    public <T> T restClient(String restUrl, HttpHeaders httpHeaders, T tRequestBody, String methodName) {
+    public synchronized <T> T restClient(String restUrl, HttpHeaders httpHeaders, T tRequestBody, String methodName) {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
@@ -96,6 +103,6 @@ public class RestTemplateUtils {
                 e.printStackTrace();
             }
         }
-        return (T) response.getBody();
+        return (T) Boolean.valueOf("false");
     }
 }
