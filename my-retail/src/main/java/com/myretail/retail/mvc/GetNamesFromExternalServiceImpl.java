@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,8 +70,11 @@ public class GetNamesFromExternalServiceImpl implements GetNamesFromExternalServ
      */
     public JSONObject getJsonFromExternalResources() throws JSONException {
 
-        String stringJson = restTemplateUtils.restClientGet(propertiesBean.getExternalApiUrl(), null, "");
-        return new JSONObject(stringJson);
+        Object stringJson = restTemplateUtils.restClientGet(propertiesBean.getExternalApiUrl(), null, "");
+        if (stringJson instanceof Boolean) {
+            throw new HttpClientErrorException(HttpStatus.PROCESSING, "Unable to process request in getJsonFromExternalResources");
+        }
+        return new JSONObject((String) stringJson);
     }
 
 
