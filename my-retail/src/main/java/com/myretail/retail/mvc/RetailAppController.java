@@ -50,7 +50,7 @@ public class RetailAppController {
 
         try {
 
-            if (itemId.toString().length() == 0 || itemId <= 0) {
+            if (itemId <= 0) {
                 return new ResponseEntity<>(new JSONObject("Invalid item id"), HttpStatus.BAD_REQUEST);
             } else {
                 priceDetailsModel = itemsService.getItemsPrice(itemId);
@@ -104,7 +104,7 @@ public class RetailAppController {
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteItemInDb(@PathVariable Long itemId) {
         try {
-            if (itemId.toString().length() == 0 || itemId <= 0) {
+            if (itemId <= 0) {
                 return new ResponseEntity<>(new JSONObject("Invalid item id"), HttpStatus.BAD_REQUEST);
             }
 
