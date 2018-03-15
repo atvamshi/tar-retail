@@ -38,11 +38,11 @@ public class ItemsServiceImpl implements ItemsService, DataBaseService {
         Set<String> jsonObject = getNamesFromExternalServiceImpl.getNames();
         logger.info(jsonObject.toString());
         try {
-            for (String name : jsonObject) {
+            jsonObject.forEach(name -> {
                 if (priceDetailsRepo.findAllByItemNameAndItemId(name, itemId) != null) {
                     priceDetailsModelList.add(priceDetailsRepo.findAllByItemNameAndItemId(name, itemId));
                 }
-            }
+            });
         } catch (Exception e) {
             return null;
         }

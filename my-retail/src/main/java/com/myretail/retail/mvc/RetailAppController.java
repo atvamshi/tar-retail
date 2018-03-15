@@ -104,6 +104,10 @@ public class RetailAppController {
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteItemInDb(@PathVariable Long itemId) {
         try {
+            if (itemId.toString().length() == 0 || itemId <= 0) {
+                return new ResponseEntity<>(new JSONObject("Invalid item id"), HttpStatus.BAD_REQUEST);
+            }
+
             dataBaseService.deleteItemInfo(itemId);
         } catch (Exception e) {
             e.printStackTrace();
