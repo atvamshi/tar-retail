@@ -13,7 +13,7 @@ package com.myretail.retail.mvc;
  */
 public interface GetNamesFromExternalService {
 
-    <T> T getNames() throws Exception;
+    <T> T getNames(Integer itemId) throws Exception;
 
-    <T> T getJsonFromExternalResources() throws Exception;
+    <T> T getJsonFromExternalResources(Integer itemId) throws Exception;
 }

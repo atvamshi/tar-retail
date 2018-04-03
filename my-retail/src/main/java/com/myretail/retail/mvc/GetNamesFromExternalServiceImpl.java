@@ -37,11 +37,10 @@ public class GetNamesFromExternalServiceImpl implements GetNamesFromExternalServ
      * @return
      * @throws JSONException
      */
-    public Set<String> getNames() throws JSONException {
+    public Set<String> getNames(Integer itemId) throws JSONException {
 
         Set<String> namesSet = new HashSet<>();
-
-        JSONObject jsonFromExternalResources = getJsonFromExternalResources();
+        JSONObject jsonFromExternalResources = getJsonFromExternalResources(itemId);
         String[] depthArray = propertiesBean.getExternalNameDepth().split(",");
         String keyJson = jsonFromExternalResources.toString();
 
@@ -50,16 +49,22 @@ public class GetNamesFromExternalServiceImpl implements GetNamesFromExternalServ
                     depthArray[jsonDepthItr].trim());
         }
 
-        //Parsing to json array from string
-        JSONArray jsonArrayItemNames = new JSONArray(keyJson);
+        //if JSON Array
+        try {
+            //Parsing to json array from string
+            JSONArray jsonArrayItemNames = new JSONArray(keyJson);
 
-        for (int itemItr = 0; itemItr < jsonArrayItemNames.length(); itemItr++) {
-            JSONObject oneItemObject = jsonArrayItemNames.getJSONObject(itemItr);
-            try {
-                namesSet.add(oneItemObject.getString(propertiesBean.getExternalNameKey().trim()));
-            } catch (Exception e) {
+            for (int itemItr = 0; itemItr < jsonArrayItemNames.length(); itemItr++) {
+                JSONObject oneItemObject = jsonArrayItemNames.getJSONObject(itemItr);
+                try {
+                    namesSet.add(oneItemObject.getString(propertiesBean.getExternalNameKey().trim()));
+                } catch (Exception e) {
+                }
             }
+        } catch (JSONException je) {
+            namesSet.add(keyJson);
         }
+
 
         return namesSet;
     }
@@ -68,9 +73,10 @@ public class GetNamesFromExternalServiceImpl implements GetNamesFromExternalServ
      * @return
      * @throws JSONException
      */
-    public JSONObject getJsonFromExternalResources() throws JSONException {
+    public JSONObject getJsonFromExternalResources(Integer itemId) throws JSONException {
 
-        Object stringJson = restTemplateUtils.restClientGet(propertiesBean.getExternalApiUrl(), null, "");
+        Object stringJson = restTemplateUtils.restClientGet(propertiesBean.getExternalApiUrl()
+                .replaceAll("\\{Item_Id}", itemId.toString()), null, "");
         if (stringJson instanceof Boolean) {
             throw new HttpClientErrorException(HttpStatus.PROCESSING, "Unable to process request in getJsonFromExternalResources");
         }

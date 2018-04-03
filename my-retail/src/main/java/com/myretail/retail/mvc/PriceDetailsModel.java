@@ -42,7 +42,10 @@ public class PriceDetailsModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long itemId;
+    private Long itemPrimaryKey;
+
+    @Column(name = "Item_Id")
+    private Integer itemId;
 
     @Column(name = "Item_Name")
     private String itemName;

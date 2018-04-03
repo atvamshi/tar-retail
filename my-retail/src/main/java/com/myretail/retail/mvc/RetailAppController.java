@@ -44,7 +44,7 @@ public class RetailAppController {
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getItemPriceInfo(@PathVariable Long itemId) {
+    public ResponseEntity<Object> getItemPriceInfo(@PathVariable Integer itemId) {
 
         List<PriceDetailsModel> priceDetailsModel;
 
@@ -102,7 +102,7 @@ public class RetailAppController {
     @Validated
     @ResponseBody
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteItemInDb(@PathVariable Long itemId) {
+    public ResponseEntity<Object> deleteItemInDb(@PathVariable Integer itemId) {
         try {
             if (itemId <= 0) {
                 return new ResponseEntity<>(new JSONObject("Invalid item id"), HttpStatus.BAD_REQUEST);

@@ -33,9 +33,9 @@ public class ItemsServiceImpl implements ItemsService, DataBaseService {
     private GetNamesFromExternalServiceImpl getNamesFromExternalServiceImpl;
 
     //    public PriceDetailsModel getItemsPrice() throws JSONException {
-    public List<PriceDetailsModel> getItemsPrice(Long itemId) throws JSONException {
+    public List<PriceDetailsModel> getItemsPrice(Integer itemId) throws JSONException {
         List<PriceDetailsModel> priceDetailsModelList = new ArrayList<>();
-        Set<String> jsonObject = getNamesFromExternalServiceImpl.getNames();
+        Set<String> jsonObject = getNamesFromExternalServiceImpl.getNames(itemId);
         logger.info(jsonObject.toString());
         try {
             jsonObject.forEach(name -> {
@@ -62,7 +62,7 @@ public class ItemsServiceImpl implements ItemsService, DataBaseService {
 
     @Override
     public void deleteItemInfo(Object itemId) {
-        priceDetailsRepo.deleteByItemId((Long) itemId);
+        priceDetailsRepo.deleteByItemId((Integer) itemId);
     }
 
     public List<PriceDetailsModel> getAllItems() {

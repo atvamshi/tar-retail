@@ -18,10 +18,10 @@ import javax.transaction.Transactional;
  */
 public interface PriceDetailsRepo extends CrudRepository<PriceDetailsModel, Long> {
 
-    PriceDetailsModel findAllByItemNameAndItemId(String itemName, Long itemId);
+    PriceDetailsModel findAllByItemNameAndItemId(String itemName, Integer itemId);
 
     @Transactional
     @Modifying
-    void deleteByItemId(Long itemId);
+    void deleteByItemId(Integer itemId);
 
 }

@@ -14,6 +14,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface ItemsService {
-    List<PriceDetailsModel> getItemsPrice(Long itemId) throws Exception;
+    List<PriceDetailsModel> getItemsPrice(Integer itemId) throws Exception;
 
 }
