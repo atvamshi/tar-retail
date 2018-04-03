@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/test-report",
                 "json:target/cucumber.json",
                 "junit:target/test-report/cucumber-junit-report.xml"},
+        format = {"json:target/cucumber.json"},
         monochrome = true,
         features = {"src/main/resources/features"},
         tags = "@USTestRetail"

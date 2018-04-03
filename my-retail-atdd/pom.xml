@@ -119,12 +119,12 @@
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>verify</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>cucumber-pass-widget</projectName>
+                            <projectName>cucumber-myretail-widget</projectName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <parallelTesting>false</parallelTesting>
                         </configuration>
