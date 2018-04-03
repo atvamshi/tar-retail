@@ -3,6 +3,7 @@
 *.bak
 RemoteSystemsTempFiles/*
 data/logs/
+RetailDb/*
 data/myretail/
 *.log
 .DS_Store
