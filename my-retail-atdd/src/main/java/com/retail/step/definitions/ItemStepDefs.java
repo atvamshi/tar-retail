@@ -2,7 +2,6 @@ package com.retail.step.definitions;
 
 import com.retail.Hooks;
 import com.retail.utils.RestTemplateUtils;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 
 import java.util.HashMap;
@@ -24,25 +23,29 @@ public class ItemStepDefs {
 
     private Properties appProperties;
     private RestTemplateUtils restTemplateUtils;
-    private Logger logger = Logger.getLogger(this.getClass());
+//    private Logger logger = Logger.getLogger(this.getClass());
 
-    {
-        appProperties = Hooks.appProperties;
-    }
-
-    public ItemStepDefs(RestTemplateUtils restTemplateUtils) {
-        this.restTemplateUtils = restTemplateUtils;
-    }
+//    {
+//        appProperties = Hooks.appProperties;
+//    }
+//
+//    public ItemStepDefs(RestTemplateUtils restTemplateUtils) {
+//        this.restTemplateUtils = restTemplateUtils;
+//    }
 
     public boolean testOneItemGet(String itemID, String itemName, String itemPrice, String itemCurrencyType) {
-        logger.info("Inside testOneItemGet");
+        appProperties = Hooks.appProperties;
+        this.restTemplateUtils = restTemplateUtils;
+
+
+//        logger.info("Inside testOneItemGet");
         String appEndPoint = appProperties.getProperty("app.api.url");
         Map headersMap = new HashMap<>();
         headersMap.put("Content-Type", "application/json");
         HttpHeaders headers = restTemplateUtils.setHeaders(headersMap);
 
         String str = restTemplateUtils.restClientGet(appEndPoint, headers, "");
-        logger.info(str);
+//        logger.info(str);
 
         return false;
     }

@@ -24,13 +24,15 @@ public class Hooks {
     private static boolean propertiesLoaded = false;
     private String appPropertiesLoc = "config/application.properties";
     private String log4JPropsLoc = "config/log4j.properties";
-    private Logger logger = Logger.getLogger(this.getClass());
+    Logger logger = Logger.getLogger(this.getClass());
+
 
     @Before
     public void loadProperties() throws IOException {
+
         if (!propertiesLoaded) {
-            loadAppProperties(this.appPropertiesLoc);
             log4JProperties(this.log4JPropsLoc);
+            loadAppProperties(this.appPropertiesLoc);
             logger.info("INFO");
             logger.debug("DEBUG");
             logger.error("ERROR");

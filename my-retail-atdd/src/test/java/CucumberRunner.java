@@ -15,14 +15,12 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-//        glue = {"classpath:com/retail/hooks", "classpath:com/retail/step/definitions"
-//                ,"classpath:com/retail/glue/code"},
-//        glue = {"classpath:com/retail"},
         plugin = {"pretty", "html:target/test-report",
                 "json:target/cucumber.json",
                 "junit:target/test-report/cucumber-junit-report.xml"},
-        features = {"classpath:features"},
-        tags = "@TestGetOneItem"
+        monochrome = true,
+        features = {"src/main/resources/features"},
+        tags = "@USTestRetail"
 )
 public class CucumberRunner {
     // Runnable Cucumber class
