@@ -23,6 +23,5 @@ import org.junit.runner.RunWith;
         tags = "@PassTest"
 )
 public class CucumberRunner {
-    //whoops just saw that if i can demonstrate it should be good. Thought of doing ATDD
-    //Any one --> test Or demonstrate Or hostable app
+    // Runnable Cucumber class
 }
