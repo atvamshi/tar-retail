@@ -1,6 +1,7 @@
-package hooks;
+package com.retail;
 
 import cucumber.api.java.Before;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.springframework.core.io.ClassPathResource;
 
@@ -20,18 +21,21 @@ import java.util.Properties;
  */
 public class Hooks {
     public static Properties appProperties;
-    public static Properties logProperties;
     private static boolean propertiesLoaded = false;
     private String appPropertiesLoc = "config/application.properties";
     private String log4JPropsLoc = "config/log4j.properties";
+    private Logger logger = Logger.getLogger(this.getClass());
 
-    @Before(order = 1)
+    @Before
     public void loadProperties() throws IOException {
         if (!propertiesLoaded) {
             loadAppProperties(this.appPropertiesLoc);
             log4JProperties(this.log4JPropsLoc);
+            logger.info("INFO");
+            logger.debug("DEBUG");
+            logger.error("ERROR");
+            logger.warn("WARN");
             propertiesLoaded = true;
-
         }
     }
 
