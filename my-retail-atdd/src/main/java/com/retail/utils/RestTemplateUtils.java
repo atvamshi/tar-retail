@@ -99,6 +99,8 @@ public class RestTemplateUtils {
             } catch (NullPointerException ne) {
                 return (T) "";
             } catch (JSONException e) {
+
+
                 e.printStackTrace();
             }
         }

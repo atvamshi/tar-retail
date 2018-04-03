@@ -23,8 +23,8 @@ public class Hooks {
     public static Properties appProperties;
     private static boolean propertiesLoaded = false;
     private String appPropertiesLoc = "config/application.properties";
-    private String log4JPropsLoc = "config/log4j.properties";
-    Logger logger = Logger.getLogger(this.getClass());
+    private String log4JPropsLoc = "config/log4j2.properties";
+    private Logger logger = Logger.getLogger(this.getClass());
 
 
     @Before

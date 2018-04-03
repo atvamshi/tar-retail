@@ -73,7 +73,7 @@ public class RetailAppController {
             return new ResponseEntity<>("No data found for the searched id", HttpStatus.ACCEPTED);
         }
 
-        return new ResponseEntity<>(priceDetailsModel, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(priceDetailsModel.get(0), HttpStatus.ACCEPTED);
     }
 
 

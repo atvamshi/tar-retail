@@ -18,7 +18,7 @@
         <masterthought.version>3.9.0</masterthought.version>
         <info.version>1.2.5</info.version>
         <apache.lang.version>3.7</apache.lang.version>
-        <spring.core.version>5.0.3.RELEASE</spring.core.version>
+        <spring.core.version>4.3.10.RELEASE</spring.core.version>
         <slf4j.api.version>1.7.25</slf4j.api.version>
         <slf4j.log4j.version>1.7.25</slf4j.log4j.version>
 
@@ -36,13 +36,12 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_core -->
-        <dependency>
-            <groupId>org.apache.jmeter</groupId>
-            <artifactId>ApacheJMeter_core</artifactId>
-            <version>4.0</version>
-        </dependency>
-
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_core &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.jmeter</groupId>-->
+        <!--<artifactId>ApacheJMeter_core</artifactId>-->
+        <!--<version>4.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>info.cukes</groupId>
@@ -93,6 +92,13 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.core.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
+
 
     </dependencies>
     <build>
