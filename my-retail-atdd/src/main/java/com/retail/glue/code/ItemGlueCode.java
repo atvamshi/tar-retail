@@ -34,5 +34,26 @@ public class ItemGlueCode implements En {
                             , this.itemStepDefs.testOneItemGet(itemID, itemName, itemPrice, itemCurrencyType));
 
                 });
+
+        Given("^I update Item API with \"([^\"]*)\" \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\" and \"([^\"]*)\"$",
+                (String itemPrimaryKey, String itemID, String itemName, String itemPrice, String itemCurrencyType) -> {
+                    Assert.assertTrue("Putting the Item details " +
+                            "Item primary key in DB" + itemPrimaryKey +
+                            "Item Id" + itemID +
+                            "itemName: " + itemName +
+                            "itemPrice: " + itemPrice +
+                            "itemCurrencyType: " + itemCurrencyType, this.itemStepDefs.putItem(itemPrimaryKey, itemID, itemName, itemPrice, itemCurrencyType));
+                });
+
+        Then("^I expect the item id \"([^\"]*)\" is updated with Item_Name as \"([^\"]*)\" and Item_Price as \"([^\"]*)\" and Item_Currency_Type as \"([^\"]*)\"$",
+                (String itemID, String itemName, String itemPrice, String itemCurrencyType) -> {
+                    Assert.assertTrue("Checking expected values for itemID: " + itemID +
+                                    "itemName: " + itemName +
+                                    "itemPrice: " + itemPrice +
+                                    "itemCurrencyType: " + itemCurrencyType
+                            , this.itemStepDefs.testOneItemInGetAll(itemID, itemName, itemPrice, itemCurrencyType));
+                });
+
+
     }
 }

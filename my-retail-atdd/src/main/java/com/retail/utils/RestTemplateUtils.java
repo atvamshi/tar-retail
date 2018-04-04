@@ -1,5 +1,6 @@
 package com.retail.utils;
 
+import gherkin.deps.com.google.gson.JsonParseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,8 +104,10 @@ public class RestTemplateUtils {
                 try {
                     JSONArray jsonArray = new JSONArray(response.getBody());
                     return (T) jsonArray.toString();
-                } catch (Exception jae) {
-                    e.printStackTrace();
+                } catch (JsonParseException jae) {
+                    return (T) response.getBody();
+                } catch (Exception eX) {
+                    eX.printStackTrace();
                 }
                 e.printStackTrace();
             }
