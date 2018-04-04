@@ -1,5 +1,6 @@
 package com.retail.utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -99,8 +100,12 @@ public class RestTemplateUtils {
             } catch (NullPointerException ne) {
                 return (T) "";
             } catch (JSONException e) {
-
-
+                try {
+                    JSONArray jsonArray = new JSONArray(response.getBody());
+                    return (T) jsonArray.toString();
+                } catch (Exception jae) {
+                    e.printStackTrace();
+                }
                 e.printStackTrace();
             }
         }

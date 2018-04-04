@@ -40,7 +40,7 @@ public class ItemStepDefs {
         this.restTemplateUtils = restTemplateUtils;
         String expecItemName = null, expecItemPrice = null, expecItemCurrencyType = null;
         JSONObject jsonObject;
-//        logger.info("Inside testOneItemGet");
+        logger.info("Inside testOneItemGet");
         String appEndPoint = appProperties.getProperty("app.api.url") + "/" + itemID;
         try {
             String responseJson = restTemplateUtils.restClientGet(appEndPoint, null, "");
