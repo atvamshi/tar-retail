@@ -4,10 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * Project: myretail-parent
@@ -33,8 +35,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TestClass {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private MockMvc mockMvc;
+
     @Test
     public void contextLoads() {
         logger.info("A sample spring test part of test suite");
     }
+
+
 }
