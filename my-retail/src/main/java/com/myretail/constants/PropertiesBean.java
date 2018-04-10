@@ -50,8 +50,6 @@ public class PropertiesBean {
     private String externalNameDepth;
 
 
-
-    //Showing my spring experience to configure initiation of beans
     @Bean
     public PropertiesBean getPropertiesBean(){
         return new PropertiesBean();
