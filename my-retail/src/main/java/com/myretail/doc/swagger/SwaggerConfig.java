@@ -18,6 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * <p>
  * Created with IntelliJ IDEA
  * To change this template use File | Settings | File Templates.
+ * http://localhost:8080/swagger-ui.html
  */
 @Configuration
 @EnableSwagger2
