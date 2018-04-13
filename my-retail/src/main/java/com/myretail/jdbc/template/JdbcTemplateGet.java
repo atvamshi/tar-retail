@@ -1,6 +1,7 @@
 package com.myretail.jdbc.template;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,11 +16,13 @@ import org.springframework.stereotype.Component;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-public class JdbcTemplate {
-    private final Jdbc;
+public class JdbcTemplateGet {
+    private final JdbcTemplate jdbcTemplate;
 
-//    @Autowired
-//    public JdbcTemplate(JdbcTemplate jdbcTemplate) {
-//        this.jdbcTemplate = jdbcTemplate;
-//    }
+    @Autowired
+    public JdbcTemplateGet(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+
 }
