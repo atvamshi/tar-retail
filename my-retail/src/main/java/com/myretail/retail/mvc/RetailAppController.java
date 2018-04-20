@@ -46,6 +46,12 @@ public class RetailAppController {
     @RequestMapping(value = "/items/{itemId}", method = RequestMethod.GET)
     public ResponseEntity<Object> getItemPriceInfo(@PathVariable Integer itemId) {
 
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session = attr.getRequest().getSession();
+//
+//        logger.info(session.getId());
+////        logger.info(attr.getRequest().getUserPrincipal().getName());
+
         List<PriceDetailsModel> priceDetailsModel;
 
         try {
